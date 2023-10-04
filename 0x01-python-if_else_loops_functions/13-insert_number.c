@@ -1,35 +1,48 @@
 #include "lists.h"
+#include <stdlib.h>
 
 /**
- * insert_node - Inserts a number into a sorted singly-linked list.
- * @head: A pointer the head of the linked list.
- * @number: The number to insert.
- *
- * Return: If the function fails - NULL.
- * Otherwise - a pointer to the new node.
- */
+* insert_node - function to insert node
+* @head: pointer to the head node
+* @number: data of the new node
+* Return: the address of the new node, or NULL if it failed
+*/
+
 listint_t *insert_node(listint_t **head, int number)
 {
-	listint_t *node = *kichwa, *mpya;
+	listint_t *current;
+	listint_t *new;
 
-	mpya = malloc(sizeof(listint_t));
-	if (mpya == NULL)
+	current = *head;
+	if (!head)
+		return NULL;
+
+	new = malloc(sizeof(listint_t));
+	if (!new)
 		return (NULL);
-	mpya->n = number;
 
-	if (node == NULL || node->n >= number)
+	new->n = number;
+	new->next = NULL;
+
+	if (*head == NULL)
+		*head = new;
+	else if (number < current->n)
 	{
-		mpya->next = node;
-		*kichwa = mpya;
-		return (mpya);
+		new->next = current;
+		*head = new;
+	}
+	else
+	{
+		while (current->next)
+		{
+			if (number > current->next->n)
+				current = current->next;
+			else
+				break;
+		}
+		new->next = current->next;
+		current->next = new;
 	}
 
-	while (node && node->next && node->next->n < number)
-		node = node->next;
-
-	mpya->next = node->next;
-	node->next = mpya;
-
-	return (mpya);
+	return (new);
 }
-
