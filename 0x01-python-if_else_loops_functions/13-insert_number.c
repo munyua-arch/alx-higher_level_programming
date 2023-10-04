@@ -12,7 +12,7 @@ listint_t *insert_node(listint_t **head, int number)
 {
 	listint_t *node = *kichwa, *mpya;
 
-	new = malloc(sizeof(listint_t));
+	mpya = malloc(sizeof(listint_t));
 	if (mpya == NULL)
 		return (NULL);
 	mpya->n = number;
@@ -20,7 +20,7 @@ listint_t *insert_node(listint_t **head, int number)
 	if (node == NULL || node->n >= number)
 	{
 		mpya->next = node;
-		*kichwa = new;
+		*kichwa = mpya;
 		return (mpya);
 	}
 
